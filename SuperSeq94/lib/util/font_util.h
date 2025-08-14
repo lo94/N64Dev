@@ -5,6 +5,6 @@
 #include <stdint.h>
 #include <libdragon.h>
 
-void init_fonts();
+void fonts_init();
 
 #endif

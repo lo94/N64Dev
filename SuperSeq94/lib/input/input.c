@@ -1,7 +1,10 @@
 #include "input.h"
 
+joypad_buttons_t buttons_pressed;
+
 void input_update()
 {
+	joypad_poll();
 	buttons_pressed = joypad_get_buttons_pressed(JOYPAD_PORT_1);
 }
 

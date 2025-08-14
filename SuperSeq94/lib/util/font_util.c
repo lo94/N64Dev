@@ -1,6 +1,6 @@
 #include "font_util.h"
 
-void init_fonts()
+void fonts_init()
 {
 	int color_mode = 0;
 

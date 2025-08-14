@@ -361,12 +361,13 @@ void menu_render_selection_grid_cell(ui_element_selection_grid_cell_t *cell)
 	
 	for(int i = 0; i < cell->intInputCount; i++)
 	{
+		int styleId = cell->base.focused ? 1 : 0;
 		debugf("%s\n", cell->intInputs[i]->base.id);
 		char valueStr[16];
     	snprintf(valueStr, sizeof(valueStr), "%d", cell->intInputs[i]->value);
 		rdpq_text_print(&(rdpq_textparms_t){
 			.width = cell->base.width,
-			.style_id = 0
+			.style_id = styleId
 		}, 1, cell->base.x + ((cell->base.width/2) - 3), cell->base.y + (cell->base.height - 2), valueStr);
 	}
 }

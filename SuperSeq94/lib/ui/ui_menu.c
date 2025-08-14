@@ -11,10 +11,10 @@ button_element_t
 joypad_inputs_t lastInput;
 joypad_inputs_t curInput;
 
-text_element_t toolSelectTextElements[] = {
-	{70, 20, true, "EDIT"},
-	{220, 20, true, "PERFORM"},
-	{370, 20, true, "SEQUENCE"}
+ui_element_label_t toolSelectTextElements[] = {
+	{.x = 70, .y = 20, .visible = true, .text = "EDIT"},
+	{.x = 220, .y = 20, .visible = true, .text = "PERFORM"},
+	{.x = 370, .y = 20, .visible = true, .text = "SEQUENCE"}
 };
 
 section_element_t mainHeaderSection = { 
@@ -24,7 +24,7 @@ section_element_t mainHeaderSection = {
 		.isSelected = true
 };
 
-selection_grid_t drumEditorGrid = {
+ui_element_selection_grid_t drumEditorGrid;/*{
 	.height = 14,
 	.width = 6,
 	.navigationInput = JOYPAD_2D_STICK,
@@ -33,31 +33,48 @@ selection_grid_t drumEditorGrid = {
 	.curY = 0,
 	.onCooldown = false
 };
-
-text_element_t editDrumLabelTextElements[] = {
-	{10, 52, true, "Sample"},
-	{10, 65, true, "S-Rate"},
-	{10, 78, true, "Pitch"},
-	{10, 91, true, "Vol"},
-	{10, 104, true, "Pan"},
-	{10, 117, true, "V-ADSR"},
-	{10, 130, true, "F-ADSR"},
-	{10, 143, true, "Depth"},
-	{10, 156, true, "F-Cut"},
-	{10, 169, true, "F-Res"},
-	{10, 182, true, "Start"},
-	{10, 195, true, "End"},
-	{10, 208, true, "Loop"},
-	{10, 221, true, "Xfade"},
-	{80, 41, true, "Voice 1"},
-	{150, 41, true, "Voice 2"},
-	{220, 41, true, "Voice 3"},
-	{290, 41, true, "Voice 4"},
-	{360, 41, true, "Voice 5"},
-	{430, 41, true, "Voice 6"}
+*/
+char *drumEditorRowNames[] = {
+    "Sample",
+    "S-Rate",
+    "Pitch",
+    "Vol",
+    "Pan",
+    "V-ADSR",
+    "F-ADSR",
+    "Depth",
+    "F-Cut",
+    "F-Res",
+    "Start",
+    "End",
+    "Loop",
+    "Xfade"
 };
 
-selection_grid_t *editDrumBodySelectionGridElements[] = {&drumEditorGrid};
+ui_element_label_t editDrumLabelTextElements[] = {
+    { .x = 10,  .y = 52,  .visible = true, .text = "Sample" },
+    { .x = 10,  .y = 65,  .visible = true, .text = "S-Rate" },
+    { .x = 10,  .y = 78,  .visible = true, .text = "Pitch" },
+    { .x = 10,  .y = 91,  .visible = true, .text = "Vol" },
+    { .x = 10,  .y = 104, .visible = true, .text = "Pan" },
+    { .x = 10,  .y = 117, .visible = true, .text = "V-ADSR" },
+    { .x = 10,  .y = 130, .visible = true, .text = "F-ADSR" },
+    { .x = 10,  .y = 143, .visible = true, .text = "Depth" },
+    { .x = 10,  .y = 156, .visible = true, .text = "F-Cut" },
+    { .x = 10,  .y = 169, .visible = true, .text = "F-Res" },
+    { .x = 10,  .y = 182, .visible = true, .text = "Start" },
+    { .x = 10,  .y = 195, .visible = true, .text = "End" },
+    { .x = 10,  .y = 208, .visible = true, .text = "Loop" },
+    { .x = 10,  .y = 221, .visible = true, .text = "Xfade" },
+    { .x = 80,  .y = 41,  .visible = true, .text = "Voice 1" },
+    { .x = 150, .y = 41,  .visible = true, .text = "Voice 2" },
+    { .x = 220, .y = 41,  .visible = true, .text = "Voice 3" },
+    { .x = 290, .y = 41,  .visible = true, .text = "Voice 4" },
+    { .x = 360, .y = 41,  .visible = true, .text = "Voice 5" },
+    { .x = 430, .y = 41,  .visible = true, .text = "Voice 6" }
+};
+
+ui_element_selection_grid_t *editDrumBodySelectionGridElements[] = {&drumEditorGrid};
 
 section_element_t editDrumBodySection = { 
 		.textElementCount = 20,
@@ -68,7 +85,7 @@ section_element_t editDrumBodySection = {
 		.isSelected = true
 };
 
-text_element_t performSelectTextElements[] = {
+ui_element_label_t performSelectTextElements[] = {
 
 };
 
@@ -79,7 +96,7 @@ section_element_t performBodySection = {
 		.isSelected = true
 };
 
-text_element_t sequenceSelectTextElements[] = {
+ui_element_label_t sequenceSelectTextElements[] = {
 
 };
 
@@ -90,15 +107,16 @@ section_element_t sequenceBodySection = {
 		.isSelected = true
 };
 
-text_element_t editSelectTextElements[] = {
-	{70, 30, true, "DRUM"},
-	{220, 30, true, " SYNTH"},
-	{370, 30, true, "  MOD"}
+ui_element_label_t editSelectTextElements[] = {
+    { .x = 70,  .y = 30,  .visible = true, .text = "DRUM" },
+    { .x = 220, .y = 30,  .visible = true, .text = " SYNTH" },
+    { .x = 370, .y = 30,  .visible = true, .text = "  MOD" }
 };
 
 section_element_t *editBodyChildren[] = {&editDrumBodySection, &performBodySection, &sequenceBodySection};
 
 section_element_t editBodySection = { 
+		DEFAULT_UI_ELEMENT_SECTION_FIELDS,
 		.textElementCount = 3,
 		.textElements = editSelectTextElements,
 		.curSelection = 0,
@@ -110,7 +128,7 @@ section_element_t editBodySection = {
 section_element_t *bodySections[] = { &editBodySection, &performBodySection, &sequenceBodySection };
 
 int selectionGridCount = 1;
-selection_grid_t *selectionGrids[] = { &drumEditorGrid };
+ui_element_selection_grid_t *selectionGrids[] = { &drumEditorGrid };
 
 ui_menu_t menu[] = {
     
@@ -124,32 +142,33 @@ int color_mode;
 
 void drum_editor_grid_init()
 {
-	selection_grid_cell_t ***gridCells = malloc(6 * sizeof(selection_grid_cell_t **));
+	/*
+	ui_element_selection_grid_cell_t ***gridCells = malloc(drumEditorGrid.width * sizeof(ui_element_selection_grid_cell_t **));
 	
 	for(int i = 0; i < 6; i++)
 	{
-		gridCells[i] = malloc(14 * sizeof(selection_grid_cell_t *));
+		gridCells[i] = malloc(drumEditorGrid.height * sizeof(ui_element_selection_grid_cell_t *));
 		
 		char sampleId[32];
 		sprintf(sampleId, "drum_sample_%d", i);
-		selection_grid_cell_t *sample = malloc(sizeof(selection_grid_cell_t));
-		*sample = (selection_grid_cell_t){ .base = {.id = strdup(sampleId), .x = 10, .y = 10} };
+		ui_element_selection_grid_cell_t *sample = malloc(sizeof(ui_element_selection_grid_cell_t));
+		*sample = (ui_element_selection_grid_cell_t){ .base = {.id = strdup(sampleId), .x = 10, .y = 10} };
 		gridCells[i][0] = sample;
 
 		char srateId[32];
 		sprintf(srateId, "drum_srate_%d", i);
-		selection_grid_cell_t *srate = malloc(sizeof(selection_grid_cell_t));
-		*srate = (selection_grid_cell_t){ .base = {.id = strdup(srateId)} };
+		ui_element_selection_grid_cell_t *srate = malloc(sizeof(ui_element_selection_grid_cell_t));
+		*srate = (ui_element_selection_grid_cell_t){ .base = {.id = strdup(srateId)} };
 		gridCells[i][1] = srate;
 
 		char pitchId[32];
 		char pitchInputId[40];
 		sprintf(pitchId, "drum_pitch_%d", i);
 		sprintf(pitchInputId, "drum_pitch_input_%d", i);
-		selection_grid_cell_t *pitch = malloc(sizeof(selection_grid_cell_t));
-		int_input_element_t *pitchInput = malloc(sizeof(int_input_element_t));
-		*pitchInput = (int_input_element_t){ .base = {.id = strdup(pitchInputId), .x = 50, .y = 50 } };
-		*pitch = (selection_grid_cell_t){
+		ui_element_selection_grid_cell_t *pitch = malloc(sizeof(ui_element_selection_grid_cell_t));
+		ui_element_input_int_t *pitchInput = malloc(sizeof(ui_element_input_int_t));
+		*pitchInput = (ui_element_input_int_t){ .base = {.id = strdup(pitchInputId), .x = 50, .y = 50 } };
+		*pitch = (ui_element_selection_grid_cell_t){
 			.base.id = strdup(pitchId),
 			.intInputs = pitchInput,
 			.intInputCount = 1
@@ -158,68 +177,68 @@ void drum_editor_grid_init()
 
 		char volId[32];
 		sprintf(volId, "drum_vol_%d", i);
-		selection_grid_cell_t *vol = malloc(sizeof(selection_grid_cell_t));
-		*vol = (selection_grid_cell_t){ .base = {.id = strdup(volId)} };
+		ui_element_selection_grid_cell_t *vol = malloc(sizeof(ui_element_selection_grid_cell_t));
+		*vol = (ui_element_selection_grid_cell_t){ .base = {.id = strdup(volId)} };
 		gridCells[i][3] = vol;
 
 		char panId[32];
 		sprintf(panId, "drum_pan_%d", i);
-		selection_grid_cell_t *pan = malloc(sizeof(selection_grid_cell_t));
-		*pan = (selection_grid_cell_t){ .base = {.id = strdup(panId)} };
+		ui_element_selection_grid_cell_t *pan = malloc(sizeof(ui_element_selection_grid_cell_t));
+		*pan = (ui_element_selection_grid_cell_t){ .base = {.id = strdup(panId)} };
 		gridCells[i][4] = pan;
 
 		char vadsrId[32];
 		sprintf(vadsrId, "drum_vadsr_%d", i);
-		selection_grid_cell_t *vadsr = malloc(sizeof(selection_grid_cell_t));
-		*vadsr = (selection_grid_cell_t){ .base = {.id = strdup(vadsrId)} };
+		ui_element_selection_grid_cell_t *vadsr = malloc(sizeof(ui_element_selection_grid_cell_t));
+		*vadsr = (ui_element_selection_grid_cell_t){ .base = {.id = strdup(vadsrId)} };
 		gridCells[i][5] = vadsr;
 
 		char fadsrId[32];
 		sprintf(fadsrId, "drum_fadsr_%d", i);
-		selection_grid_cell_t *fadsr = malloc(sizeof(selection_grid_cell_t));
-		*fadsr = (selection_grid_cell_t){ .base = {.id = strdup(fadsrId)} };
+		ui_element_selection_grid_cell_t *fadsr = malloc(sizeof(ui_element_selection_grid_cell_t));
+		*fadsr = (ui_element_selection_grid_cell_t){ .base = {.id = strdup(fadsrId)} };
 		gridCells[i][6] = fadsr;
 
 		char depthId[32];
 		sprintf(depthId, "drum_depth_%d", i);
-		selection_grid_cell_t *depth = malloc(sizeof(selection_grid_cell_t));
-		*depth = (selection_grid_cell_t){ .base = {.id = strdup(depthId)} };
+		ui_element_selection_grid_cell_t *depth = malloc(sizeof(ui_element_selection_grid_cell_t));
+		*depth = (ui_element_selection_grid_cell_t){ .base = {.id = strdup(depthId)} };
 		gridCells[i][7] = depth;
 
 		char fcutId[32];
 		sprintf(fcutId, "drum_fcut_%d", i);
-		selection_grid_cell_t *fcut = malloc(sizeof(selection_grid_cell_t));
-		*fcut = (selection_grid_cell_t){ .base = {.id = strdup(fcutId)} };
+		ui_element_selection_grid_cell_t *fcut = malloc(sizeof(ui_element_selection_grid_cell_t));
+		*fcut = (ui_element_selection_grid_cell_t){ .base = {.id = strdup(fcutId)} };
 		gridCells[i][8] = fcut;
 
 		char fresId[32];
 		sprintf(fresId, "drum_fres_%d", i);
-		selection_grid_cell_t *fres = malloc(sizeof(selection_grid_cell_t));
-		*fres = (selection_grid_cell_t){ .base = {.id = strdup(fresId)} };
+		ui_element_selection_grid_cell_t *fres = malloc(sizeof(ui_element_selection_grid_cell_t));
+		*fres = (ui_element_selection_grid_cell_t){ .base = {.id = strdup(fresId)} };
 		gridCells[i][9] = fres;
 
 		char startId[32];
 		sprintf(startId, "drum_start_%d", i);
-		selection_grid_cell_t *start = malloc(sizeof(selection_grid_cell_t));
-		*start = (selection_grid_cell_t){ .base = {.id = strdup(startId)} };
+		ui_element_selection_grid_cell_t *start = malloc(sizeof(ui_element_selection_grid_cell_t));
+		*start = (ui_element_selection_grid_cell_t){ .base = {.id = strdup(startId)} };
 		gridCells[i][10] = start;
 
 		char endId[32];
 		sprintf(endId, "drum_end_%d", i);
-		selection_grid_cell_t *end = malloc(sizeof(selection_grid_cell_t));
-		*end = (selection_grid_cell_t){ .base = {.id = strdup(endId)} };
+		ui_element_selection_grid_cell_t *end = malloc(sizeof(ui_element_selection_grid_cell_t));
+		*end = (ui_element_selection_grid_cell_t){ .base = {.id = strdup(endId)} };
 		gridCells[i][11] = end;
 
 		char loopId[32];
 		sprintf(loopId, "drum_loop_%d", i);
-		selection_grid_cell_t *loop = malloc(sizeof(selection_grid_cell_t));
-		*loop = (selection_grid_cell_t){ .base = {.id = strdup(loopId)} };
+		ui_element_selection_grid_cell_t *loop = malloc(sizeof(ui_element_selection_grid_cell_t));
+		*loop = (ui_element_selection_grid_cell_t){ .base = {.id = strdup(loopId)} };
 		gridCells[i][12] = loop;
 
 		char xfadeId[32];
 		sprintf(xfadeId, "drum_xfade_%d", i);
-		selection_grid_cell_t *xfade = malloc(sizeof(selection_grid_cell_t));
-		*xfade = (selection_grid_cell_t){ .base = {.id = strdup(xfadeId)} };
+		ui_element_selection_grid_cell_t *xfade = malloc(sizeof(ui_element_selection_grid_cell_t));
+		*xfade = (ui_element_selection_grid_cell_t){ .base = {.id = strdup(xfadeId)} };
 		gridCells[i][13] = xfade;
 	}
 
@@ -247,6 +266,7 @@ void drum_editor_grid_init()
 	}
 		
 	drumEditorGrid.gridCells = gridCells;
+	*/
 }
 
 void menu_init()
@@ -256,51 +276,16 @@ void menu_init()
     MENU_BKG = RGBA32(0x17,0x43,0x4E,0xFF);
     MENU_END = RGBA32(0x5C,0x07,0x44,0xFF);
     color_mode = 0;
-	drum_editor_grid_init();
+
+
+	drumEditorGrid = selection_grid("drum_editor_grid", 15, 52, 6, 14, JOYPAD_2D_STICK);
+	selection_grid_cells_init(&drumEditorGrid, drumEditorRowNames, 14, (char *[]){"Voice"}, 1, 70, 70, 44, 13, 65, 11);
+	for(int i = 0; i < drumEditorGrid.width; i++)
+	{
+		selection_grid_add_int_input_to_cell_by_index(&drumEditorGrid, i, 2, 0, -12, 12);
+	}
+	//drum_editor_grid_init();
     menu_render();
-}
-
-bool direction_pressed(int navigationAxis, int direction)
-{
-	joypad_buttons_t dir = joypad_get_buttons_pressed(JOYPAD_PORT_1);
-	if(direction == JOYPAD_8WAY_UP) return dir.d_up;
-	else if(direction == JOYPAD_8WAY_DOWN) return dir.d_down;
-	else if(direction == JOYPAD_8WAY_LEFT) return dir.d_left;
-	else if(direction == JOYPAD_8WAY_RIGHT) return dir.d_right;
-	return false;
-	//return direction == dir;
-	/*
-	if(navigationAxis == JOYPAD_2D_STICK)
-	{
-		if(direction == JOYPAD_UP && joypad2d.up) return true;
-		else if(direction == JOYPAD_DOWN && joypad2d.down) return true;
-		else if(direction == JOYPAD_LEFT && joypad2d.left) return true;
-		else if(direction == JOYPAD_RIGHT && joypad2d.right) return true;
-	}
-	else if(navigationAxis == JOYPAD_DPAD)
-	{
-		if(direction == JOYPAD_UP && joypadButtons.d_up) return true;
-		else if(direction == JOYPAD_DOWN && joypadButtons.d_down) return true;
-		else if(direction == JOYPAD_LEFT && joypadButtons.d_left) return true;
-		else if(direction == JOYPAD_RIGHT && joypadButtons.d_right) return true;
-	}
-	*/
-}
-
-selection_grid_cell_t* selection_grid_get_cur_cell(selection_grid_t *grid)
-{
-	if(grid->curX < 0 || grid->curY < 0 || grid->curX >= grid->width || grid->curY >= grid->height)
-		return NULL;
-	return grid->gridCells[grid->curX][grid->curY];
-}
-
-void selection_grid_select_cur_cell(selection_grid_t *grid)
-{
-	selection_grid_cell_t *cell = selection_grid_get_cur_cell(grid);
-	if(cell)
-	{
-		cell->base.selected = true;
-	}
 }
 
 bool menu_update()
@@ -334,61 +319,15 @@ bool menu_update()
 	
 	for(int i = 0; i < selectionGridCount; i++)
 	{
-		if(selectionGrids[i]->base.focused)
+		if(selectionGrids[i]->base.update(selectionGrids[i]))
 		{
-			selection_grid_cell_t *lastCell = selection_grid_get_cur_cell(selectionGrids[i]);
-			if(direction_pressed(selectionGrids[i]->navigationInput, JOYPAD_8WAY_UP))
-			{
-				selectionGrids[i]->curY--;
-				if(selectionGrids[i]->curY < 0)
-				{
-					selectionGrids[i]->curY = selectionGrids[i]->height - 1;
-				}
-				changed = true;
-			}
-			else if(direction_pressed(selectionGrids[i]->navigationInput, JOYPAD_8WAY_DOWN))
-			{
-				selectionGrids[i]->curY++;
-				if(selectionGrids[i]->curY >= selectionGrids[i]->height)
-				{
-					selectionGrids[i]->curY = 0;
-				}
-				changed = true;
-			}
-			else if(direction_pressed(selectionGrids[i]->navigationInput, JOYPAD_8WAY_LEFT))
-			{
-				selectionGrids[i]->curX--;
-				
-				if(selectionGrids[i]->curX < 0)
-				{
-					selectionGrids[i]->curX = selectionGrids[i]->width - 1;
-				}
-				changed = true;
-			}
-			else if(direction_pressed(selectionGrids[i]->navigationInput, JOYPAD_8WAY_RIGHT))
-			{
-				selectionGrids[i]->curX++;
-				if(selectionGrids[i]->curX >= selectionGrids[i]->width)
-				{
-					selectionGrids[i]->curX = 0;
-				}
-				changed = true;
-			}
-
-			if(lastCell != selection_grid_get_cur_cell(selectionGrids[i]))
-			{
-				lastCell->base.selected = false;
-				selection_grid_select_cur_cell(selectionGrids[i]);
-			}
+			changed = true;
 		}
-		
 	}
-		
-
     return changed;
 }
 
-void menu_render_text_element(text_element_t *textElement)
+void menu_render_text_element(ui_element_label_t *textElement)
 {
 	int styleId = textElement->base.selected ? 1 : 0;
 	rdpq_text_print(&(rdpq_textparms_t){
@@ -403,7 +342,7 @@ void menu_render_rectangle(int x, int y, int width, int height, color_t color)
 	rdpq_fill_rectangle(x, y, width, height);
 }
 
-void menu_render_selection_grid_cell(selection_grid_cell_t *cell)
+void menu_render_selection_grid_cell(ui_element_selection_grid_cell_t *cell)
 {
 	
 	if(cell->base.selected)
@@ -422,11 +361,17 @@ void menu_render_selection_grid_cell(selection_grid_cell_t *cell)
 	
 	for(int i = 0; i < cell->intInputCount; i++)
 	{
-		
+		debugf("%s\n", cell->intInputs[i]->base.id);
+		char valueStr[16];
+    	snprintf(valueStr, sizeof(valueStr), "%d", cell->intInputs[i]->value);
+		rdpq_text_print(&(rdpq_textparms_t){
+			.width = cell->base.width,
+			.style_id = 0
+		}, 1, cell->base.x + ((cell->base.width/2) - 3), cell->base.y + (cell->base.height - 2), valueStr);
 	}
 }
 
-void menu_render_selection_grid(selection_grid_t *grid)
+void menu_render_selection_grid(ui_element_selection_grid_t *grid)
 {
 	for(int i = 0; i < grid->width; i++)
 	{
@@ -435,26 +380,6 @@ void menu_render_selection_grid(selection_grid_t *grid)
 			//debugf("BEFORE GRID CELL RENDER: %d, %d\n", i, j);
 			menu_render_selection_grid_cell(grid->gridCells[i][j]);
 		}
-	}
-}
-
-void menu_render_section(section_element_t *s)
-{
-	// TODO update this, remove this loop, should only call render on children
-	// Text menu selection should be a selection_grid_t
-    for(int i = 0; i < s->textElementCount; i++)
-	{
-        s->textElements[i].base.selected = s->curSelection == i ? true : false;
-        menu_render_text_element(&s->textElements[i]);
-	}
-	for(int i = 0; i < s->selectionGridElementCount; i++)
-	{
-		s->selectionGridElements[i]->base.focused = true;
-        menu_render_selection_grid(s->selectionGridElements[i]);
-	}
-	if(s->childCount > 0)
-	{
-		menu_render_section(s->children[s->curSelection]);
 	}
 }
 
@@ -479,7 +404,35 @@ void menu_defocus_section(section_element_t *s)
 	}
 }
 
-
+void menu_render_section(section_element_t *s)
+{
+	// TODO update this, remove this loop, should only call render on children
+	// Text menu selection should be a selection_grid_t
+    for(int i = 0; i < s->textElementCount; i++)
+	{
+        s->textElements[i].base.selected = s->curSelection == i ? true : false;
+        menu_render_text_element(&s->textElements[i]);
+	}
+	for(int i = 0; i < s->selectionGridElementCount; i++)
+	{
+		s->selectionGridElements[i]->base.focused = true;
+        menu_render_selection_grid(s->selectionGridElements[i]);
+	}
+	if(s->childCount > 0)
+	{
+		for(int i = 0; i < s->childCount; i++)
+		{
+			if(i == s->curSelection)
+			{
+				menu_render_section(s->children[i]);
+			}
+			else
+			{
+				menu_defocus_section(s->children[i]);
+			}
+		}
+	}
+}
 
 void menu_render()
 {

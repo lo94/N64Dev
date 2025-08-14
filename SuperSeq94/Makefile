@@ -3,6 +3,8 @@ include $(N64_INST)/include/n64.mk
 
 OBJS = $(BUILD_DIR)/SuperSeq94.o \
 	$(BUILD_DIR)/lib/ui/ui_menu.o \
+	$(BUILD_DIR)/lib/ui/ui_elements.o \
+	$(BUILD_DIR)/lib/input/input.o \
 	$(BUILD_DIR)/lib/util/font_util.o
 
 assets = $(wildcard assets/*.wav)

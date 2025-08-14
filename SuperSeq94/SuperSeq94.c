@@ -13,6 +13,7 @@ The circumstances just make it seem particularly so
 #include "lib/ui/ui_menu.h"
 #include "lib/audio/synth.h"
 #include "lib/util/font_util.h"
+#include "lib/input/input.h"
 
 // Mixer channel allocation
 #define CHANNEL_SFX1    0
@@ -298,9 +299,11 @@ int main(void) {
 		//update_display_begin();
 		update_input();
 		update_audio();
+		input_update();
 		if(menu_update())
 		{
 			menu_render();
+			//mixer_ch_play(CHANNEL_SFX1, &sfx_cannon.wave);
 		}
 		/*
 		joypad_buttons_t ckeys = joypad_get_buttons_pressed(JOYPAD_PORT_1);

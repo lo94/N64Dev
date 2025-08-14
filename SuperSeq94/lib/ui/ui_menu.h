@@ -5,6 +5,12 @@
 #include <stdint.h>
 #include <libdragon.h>
 
+/*
+    TODO
+    This should be updated to work like ui_elements
+    Maybe put it in that class?
+    Should be able to be instantiated with a constructor
+*/
 enum Section {
     EDIT,
     PERFORM,

@@ -1,4 +1,3 @@
-For use with libdragon
+Synth/Sequencer for N64
 
-Easiest use is to just drop it in libdragon/examples and build from there
-It can also be set to the src/ folder and built from there
+Built with libdragon, see their getting started for how to get your environment setup
